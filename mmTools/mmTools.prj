@@ -1,0 +1,41 @@
+[Project ID]
+	Signature=UE Proj: v.1
+[Project Information]
+	Compilable=1
+	Use Relative Directory=1
+	Relative to Project File=1
+	Include Sub Directories=1
+	Project Tagfile=
+	Project Wordfile=
+	Project TpFile=
+	Filter=
+	Using VCS=1
+	Save Account=0
+	Create Tagfile=0
+	CTags Legacy Support=0
+[uemakeXp]
+	Compiler=Configs\Microsoft .NET\Visual Basic compiler\Console Application
+	ReleaseMode=1
+[Configs\Microsoft .NET\Visual Basic compiler\Console Application]
+	OutputDirectory_ReleaseMode=Release
+	OutputDirectory_DebugMode=Debug
+	Target=mmTools.EXE
+	Framework=1.1.4322
+	Working Directory=.
+	Command Line Arguments=mmTools.EXE
+	Excluded Files=Excludes
+	References=References
+	Check Arithmetic=/removeintchecks-
+	Warn As Error=/warnaserror-
+	System References=Windows.Forms, Data, Design, Drawing
+	Compiler Options=
+	Debugger=$(SDKPATH)GuiDebug\DbgCLR.exe
+[Debug Settings]
+	Program Arguments=
+	Symbol Paths=
+	Working Directory=
+	Selected Debugger=0
+	Source Paths=
+[Files]
+	0=.\
+	1=Module1.vb
