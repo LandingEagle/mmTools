@@ -70,8 +70,8 @@ Module Module1
 
          Select Case MnuSel
 
-            Case "q" : MnuSel = "99"
-            Case "99"
+            Case "q" : MnuSel = "99" : Exit Select
+            Case "99" : Exit Select
 
             Case "01" : If Not ChgTrkDsk() Then MnuSel = "99"
             Case "02" : If Not CnsMscChr() Then MnuSel = "99"
@@ -1770,11 +1770,11 @@ Module Module1
    End Function
    REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
    Function CurDat() As String
-      Return FormatDateTime(Now, "yyyy-mm-dd")
+      Return Format(Now, "yyyy-mm-dd")
    End Function
    REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
    Function CurTim() As String
-      Return FormatDateTime(Now, "hh:mm:ss")
+      Return Format(Now, "hh:mm:ss")
    End Function
    REM ****************************************************************************************************************************************************************
 
