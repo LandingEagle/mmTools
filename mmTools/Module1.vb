@@ -58,7 +58,6 @@ Module Module1
    Sub Main()
 
       mm.ShutdownAfterDisconnect = False
-
       Dim MnuSel As String = Nothing
 
       While MnuSel <> "99"
@@ -121,12 +120,12 @@ Module Module1
                         & "|" & FixLngStr(sd.AlbumArtistName, MusNamLng) _
                         & "|" & FixLngStr(sd.AlbumName, AlbNamLng) _
                           )
-            If (sd.TrackOrder < 10 And Left(sd.TrackOrderStr, 1) <> "0") Then sd.TrackOrderStr = CStr(LdgZ(sd.TrackOrder))
-            If (sd.DiscNumber > 0 And sd.DiscNumber < 10 And Left(sd.DiscNumberStr, 1) <> "0") Then sd.DiscNumberStr = CStr(LdgZ(sd.DiscNumber))
+            If (sd.TrackOrder < 10 And Left(sd.TrackOrderStr, 1) <> "0") Then sd.TrackOrderStr = LdgZ(sd.TrackOrder)
+            If (sd.DiscNumber > 0 And sd.DiscNumber < 10 And Left(sd.DiscNumberStr, 1) <> "0") Then sd.DiscNumberStr = LdgZ(sd.DiscNumber)
             Console.WriteLine("|" & pfx(cslCnt, slCnt) _
                             & "|" & FixLngInt(sd.DiscNumber, 99) _
                             & "|" & FixLngInt(sd.TrackOrder, 99) _
-                            & "|" _
+                            & "|"
                              )
             sd.UpdateDB()
             sd.WriteTags()
@@ -185,7 +184,7 @@ Module Module1
                               & "|" & FixLngStr(sd.AlbumArtistName, MusNamLng) _
                               & "|" & FixLngStr(sd.AlbumName, AlbNamLng) _
                               & "|" & FixLngStr(sd.TrackOrderStr, TrkNbrLng) _
-                              & "|" & FixLngStr(csdTit, TrkNamLng) _
+                              & "|" & FixLngStr(csdTit, TrkNamLng)
                                )
                   _1p = True
                End If
@@ -331,7 +330,7 @@ Module Module1
                               & "|" & FixLngStr(sd.AlbumArtistName, MusNamLng) _
                               & "|" & FixLngStr(sd.AlbumName, AlbNamLng) _
                               & "|" & FixLngStr(sd.TrackOrderStr, TrkNbrLng) _
-                              & "|" & FixLngStr(csdTit, TrkNamLng) _
+                              & "|" & FixLngStr(csdTit, TrkNamLng)
                                )
                   _1p = True
                End If
@@ -545,7 +544,7 @@ Module Module1
                      & "|" & FixLngInt(sdIndx(DtaSrcInt), slLstCt) _
                      & "|" & SrcDta.AlbumArtistName _
                      & "|" & FixLngInt(x, 999) _
-                     & "|" & FixLngInt(DtaDrnInt(x), slLstCt) _
+                     & "|" & FixLngInt(DtaDrnInt(x), slLstCt)
                      )
 
          DrnDta = sl.Item(DtaDrnInt(x))
@@ -619,7 +618,7 @@ Module Module1
                cnscLn += 1 : Console.WriteLine(AlbHdr(cslCnt, slCnt, 0, 0) _
                                              & "|" & FixLngStr(sd.TrackOrderStr, TrkNbrLng) _
                                              & "|" & FixLngStr(sd.Title, TrkNamLng) _
-                                             & "|" _
+                                             & "|"
                                               )
             End If
 
@@ -674,7 +673,7 @@ Module Module1
                                        & "|" & FixLngStr(sd.TrackOrderStr, TrkNbrLng) _
                                        & "|" & FixLngStr(sd.Title, TrkNamLng) _
                                        & "|" & FixLngStr(sd.ArtistName, MusNamLng) _
-                                       & "|" _
+                                       & "|"
                                         )
 
       Next
@@ -723,7 +722,7 @@ Module Module1
                      & "|" & FixLngStr(SrcDta.AlbumArtistName, MusNamLng) _
                      & "|" & FixLngInt(x, 999) _
                      & "|" & FixLngInt(sdIndx(DtaDrnInt(x)), slLstCt) _
-                     & "|" & FixLngStr(DrnDta.AlbumArtistName, MusNamLng) _
+                     & "|" & FixLngStr(DrnDta.AlbumArtistName, MusNamLng)
                       )
 
          DrnDta.ArtistName = ""
@@ -786,7 +785,7 @@ Module Module1
             cnscLn += 1 : Console.WriteLine(AlbHdr(cslCnt, slCnt, 0, 0) _
                           & "|" & FixLngStr(sd.TrackOrderStr, TrkNbrLng) _
                           & "|" & FixLngStr(sd.Title, TrkNamLng) _
-                          & "|" _
+                          & "|"
                            )
 
             psdTit = csdTit
@@ -838,7 +837,7 @@ Module Module1
                                        & "|" & FixLngStr(sd.TrackOrderStr, TrkNbrLng) _
                                        & "|" & FixLngStr(sd.Title, TrkNamLng) _
                                        & "|" & FixLngStr(sd.ArtistName, MusNamLng) _
-                                       & "|" _
+                                       & "|"
                                         )
 
       Next
@@ -887,7 +886,7 @@ Module Module1
                      & "|" & FixLngStr(SrcDta.AlbumArtistName, MusNamLng) _
                      & "|" & FixLngInt(x, 999) _
                      & "|" & FixLngInt(sdIndx(DtaDrnInt(x)), slLstCt) _
-                     & "|" & FixLngStr(DrnDta.AlbumArtistName, MusNamLng) _
+                     & "|" & FixLngStr(DrnDta.AlbumArtistName, MusNamLng)
                       )
 
          DrnDta.ArtistName = ""
@@ -929,7 +928,7 @@ Module Module1
                         & "|" & FixLngStr(sd.TrackOrderStr, TrkNbrLng) _
                         & "|" & FixLngStr(sd.Title, TrkNamLng) _
                         & "|" & FixLngStr(sd.AlbumArtistName, MusNamLng) _
-                        & "|" & FixLngStr(sd.MusicComposer, AlbNamLng) _
+                        & "|" & FixLngStr(sd.MusicComposer, AlbNamLng)
                          )
             sd.MusicComposer = Replace(sd.MusicComposer, "/", ";")
             Console.WriteLine("|" & "|" & FixLngStr(sd.MusicComposer, AlbNamLng) & "|")
@@ -1042,7 +1041,7 @@ Module Module1
                                        & "|" & FixLngStr(sd.TrackOrderStr, TrkNbrLng) _
                                        & "|" & FixLngStr(sd.Title, TrkNamLng) _
                                        & "|" & FixLngStr(sd.MusicComposer, MusCprLng) _
-                                       & "|" _
+                                       & "|"
                                         )
 
       Next
@@ -1091,7 +1090,7 @@ Module Module1
                      & "|" & FixLngStr(SrcDta.MusicComposer, MusCprLng) _
                      & "|" & FixLngInt(DtaDrnInt(x), 999) _
                      & "|" & FixLngInt(sdIndx(DtaDrnInt(x)), cslCnt) _
-                     & "|" & FixLngStr(DrnDta.MusicComposer, MusCprLng) _
+                     & "|" & FixLngStr(DrnDta.MusicComposer, MusCprLng)
                       )
 
          DrnDta.MusicComposer = SrcDta.MusicComposer
@@ -1164,7 +1163,7 @@ Module Module1
                                    & "|" & FixLngStr(sd.DiscNumberStr, TrkNbrLng) _
                                    & "|" & FixLngStr(sd.TrackOrderStr, TrkNbrLng) _
                                    & "|" & FixLngStr(sd.Title, TrkNamLng) _
-                                   & "|" & FixLngStr(FilExt, FilExtLng) _
+                                   & "|" & FixLngStr(FilExt, FilExtLng)
                                         )
 
          For aIndx = 0 To AlbArtCnt
@@ -1178,7 +1177,7 @@ Module Module1
                                & "|" & trsltAlbArtItmTyp(AlbArtItm.ItemType) _
                                & "|" & FixLngInt(AlbArtItm.ItemStorage, 1) _
                                & "|" & FixLngStr(AlbArtItm.PicturePath, ArtNamLng) _
-                               & "|" _
+                               & "|"
                                 )
 
             Else
@@ -1191,7 +1190,7 @@ Module Module1
                                              & "|" & trsltAlbArtItmTyp(AlbArtItm.ItemType) _
                                              & "|" & FixLngInt(AlbArtItm.ItemStorage, 1) _
                                              & "|" & FixLngStr(AlbArtItm.PicturePath, ArtNamLng) _
-                                             & "|" _
+                                             & "|"
                                               )
 
             End If
@@ -1284,7 +1283,7 @@ Module Module1
                                           & "|" & trsltAlbArtItmTyp(AlbArtItm.ItemType) _
                                           & "|" & FixLngInt(AlbArtItm.ItemStorage, 1) _
                                           & "|" & FixLngStr(AlbArtItm.PicturePath, ArtNamLng) _
-                                          & "|" _
+                                          & "|"
                                            )
 
          Next
@@ -1341,7 +1340,7 @@ Module Module1
                                & "|" & trsltAlbArtItmTyp(AlbArtItm.ItemType) _
                                & "|" & FixLngInt(AlbArtItm.ItemStorage, 1) _
                                & "|" & FixLngStr(AlbArtItm.PicturePath, ArtNamLng) _
-                               & "|" _
+                               & "|"
                                 )
 
             Else
@@ -1354,7 +1353,7 @@ Module Module1
                                              & "|" & trsltAlbArtItmTyp(AlbArtItm.ItemType) _
                                              & "|" & FixLngInt(AlbArtItm.ItemStorage, 1) _
                                              & "|" & FixLngStr(AlbArtItm.PicturePath, ArtNamLng) _
-                                             & "|" _
+                                             & "|"
                                               )
 
             End If
@@ -1516,7 +1515,7 @@ Module Module1
       End If
 
       If Not IsNumeric(DtaSrc) Then DtaSrc = ""
-      Return CInt(DtaSrc)
+      Return DtaSrc
 
    End Function
    REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1568,7 +1567,7 @@ Module Module1
             DtaDrnDta(DtaDrnIdx) = -1
             Return DtaDrnDta
          End If
-         DtaDrnIdx += 1 : ReDim Preserve DtaDrnDta(DtaDrnIdx) : DtaDrnDta(DtaDrnIdx) = CInt(DtaDrn)
+         DtaDrnIdx += 1 : ReDim Preserve DtaDrnDta(DtaDrnIdx) : DtaDrnDta(DtaDrnIdx) = DtaDrn
       Loop
 
       Return DtaDrnDta
@@ -1703,14 +1702,14 @@ Module Module1
       Dim FmtStr As String
       Select Case Edt
          Case "Z"
-            FmtStr = CStr("0")
+            FmtStr = "0"
          Case Else
-            FmtStr = CStr("#,##0")
+            FmtStr = "#,##0"
       End Select
-      Dim StrFmt = CStr(Format(n, FmtStr))
+      Dim StrFmt = Format(n, FmtStr)
 
       Dim lStr As Integer = Len(StrFmt)
-      Dim lMax As Integer = Len(CStr(Format(maxn, FmtStr)))
+      Dim lMax As Integer = Len(Format(maxn, FmtStr))
       Dim clen = lMax - lStr
       Dim wkFixLng As New StringBuilder
       Dim strFixLng As String
