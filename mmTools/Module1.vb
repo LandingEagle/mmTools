@@ -11,6 +11,8 @@ REM * 2015-04-12 LstAllSng implementieren
 REM * 2015-04-15 Dateinamenendungskorrekturfunktion einbauen
 REM * 2015-05-24 Datenexport: Dateilokation/Name ausgeben
 REM * 2015-07-18 FixLngInt: Format-String und formatieren String in zwei Variablen vorhalten
+REM * 2016-03-17 Format-String in CurDat von yyyy-mm-dd auf yyyy-MM-dd umstellen
+REM *            Format-String in CurTim von hh:mm:ss auf HH:mm:ss umstellen
 REM ********************************************************************************************************************************************************************
 
 REM ********************************************************************************************************************************************************************
@@ -29,12 +31,12 @@ Module Module1
    REM ****************************************************************************************************************************************************************
    Public cnscLn As Integer = -1
 
-   Const AlbNamLng = 75
-   Const MusNamLng = 75
-   Const MusCprLng = 75
-   Const TrkNamLng = 75
+   Const AlbNamLng = 40
+   Const MusNamLng = 40
+   Const MusCprLng = 40
+   Const TrkNamLng = 40
    Const AlbArtLng = 2
-   Const ArtNamLng = 100
+   Const ArtNamLng = 40
    Const TrkNbrLng = 3
    Const TrkTimLng = 8
    Const FilExtLng = 4
@@ -113,18 +115,17 @@ Module Module1
          If (sd.TrackOrder < 10 And Left(sd.TrackOrderStr, 1) <> "0") _
          Or (sd.DiscNumber > 0 And sd.DiscNumber < 10 And Left(sd.DiscNumberStr, 1) <> "0") _
              Then
-            Console.Write("|" & pfx(cslCnt, slCnt) _
+            Console.Write(pfx(cslCnt, slCnt) _
                         & "|" & FixLngStr(sd.DiscNumberStr, TrkNbrLng) _
                         & "|" & FixLngStr(sd.TrackOrderStr, TrkNbrLng) _
                         & "|" & FixLngStr(sd.Title, TrkNamLng) _
                         & "|" & FixLngStr(sd.AlbumArtistName, MusNamLng) _
-                        & "|" & FixLngStr(sd.AlbumName, AlbNamLng) _
+                        & "|" & FixLngStr(sd.AlbumName, AlbNamLng)
                           )
             If (sd.TrackOrder < 10 And Left(sd.TrackOrderStr, 1) <> "0") Then sd.TrackOrderStr = LdgZ(sd.TrackOrder)
             If (sd.DiscNumber > 0 And sd.DiscNumber < 10 And Left(sd.DiscNumberStr, 1) <> "0") Then sd.DiscNumberStr = LdgZ(sd.DiscNumber)
-            Console.WriteLine("|" & pfx(cslCnt, slCnt) _
-                            & "|" & FixLngInt(sd.DiscNumber, 99) _
-                            & "|" & FixLngInt(sd.TrackOrder, 99) _
+            Console.WriteLine("|" & FixLngStr(sd.DiscNumberStr, TrkNbrLng) _
+                            & "|" & FixLngStr(sd.TrackOrderStr, TrkNbrLng) _
                             & "|"
                              )
             sd.UpdateDB()
@@ -1686,7 +1687,7 @@ Module Module1
 
    REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
    Sub HrtBet(x As Integer, y As Integer)
-      If (x Mod 500) = 0 Then Console.WriteLine(pfx(x, y))
+      If (x Mod 1000) = 0 Then Console.WriteLine(pfx(x, y))
    End Sub
    REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1769,11 +1770,11 @@ Module Module1
    End Function
    REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
    Function CurDat() As String
-      Return Format(Now, "yyyy-mm-dd")
+      Return Format(Now, "yyyy-MM-dd")
    End Function
    REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
    Function CurTim() As String
-      Return Format(Now, "hh:mm:ss")
+      Return Format(Now, "HH:mm:ss")
    End Function
    REM ****************************************************************************************************************************************************************
 
