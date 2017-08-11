@@ -1416,14 +1416,15 @@ Module Module1
    Function Exp2HndBas() As Boolean
 
       Dim cslCnt As Long
-
-      Dim CvsFil = My.Computer.FileSystem.OpenTextFileWriter("mmTools.LstAllSng.4.HndBas.csv", False)
       Dim TxtStr As String
+
+      TxtStr = "mmTools.LstAllSng.4.HndBas." & CurDat() & ".csv"
+      Dim CvsFil = My.Computer.FileSystem.OpenTextFileWriter(TxtStr, False)
+
       Dim AlbMus As String
       Dim AlbNam As String
       Dim TrcTit As String
       Dim TrcMus As String
-      Dim Compos As String
 
       TxtStr = "Albumartist" _
        & ";" & "Year" _
