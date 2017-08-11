@@ -4,7 +4,7 @@ REM * 2015-03-20 Übernehmen bereinigte Subs/Functionen aus mm_CorDskTrk
 REM *            Bildschrimaufbereitung vereinheitlichen
 REM *            Fehlerbehebungen FixLngInt|Str
 REM *            Update Bilder
-REM * 2015-03-22 Update Bilder 
+REM * 2015-03-22 Update Bilder
 REM *            Mehrfachdefinition sd. bereinigen
 REM *            Beginnen Update-Logik
 REM * 2015-04-12 LstAllSng implementieren
@@ -13,6 +13,7 @@ REM * 2015-05-24 Datenexport: Dateilokation/Name ausgeben
 REM * 2015-07-18 FixLngInt: Format-String und formatieren String in zwei Variablen vorhalten
 REM * 2016-03-17 Format-String in CurDat von yyyy-mm-dd auf yyyy-MM-dd umstellen
 REM *            Format-String in CurTim von hh:mm:ss auf HH:mm:ss umstellen
+REM * 2017-08-11 CSV-Listing für HandBase ausgeben
 REM ********************************************************************************************************************************************************************
 
 REM ********************************************************************************************************************************************************************
@@ -84,6 +85,8 @@ Module Module1
             Case "13" : If Not CordbpCpr() Then MnuSel = "99"
             Case "14" : If Not CnsTrkCpr() Then MnuSel = "99"
             Case "15" : If Not CnsAlbTrkArt() Then MnuSel = "99"
+
+            Case "20" : If Not Exp2HndBas() Then MnuSel = "99"
 
             Case "80" : If Not LstAllSng() Then MnuSel = "99"
 
@@ -1410,6 +1413,65 @@ Module Module1
    REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
    REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Function Exp2HndBas() As Boolean
+
+      Dim cslCnt As Long
+
+      Dim CvsFil = My.Computer.FileSystem.OpenTextFileWriter("mmTools.LstAllSng.4.HndBas.csv", False)
+      Dim TxtStr As String
+      Dim AlbMus As String
+      Dim AlbNam As String
+      Dim TrcTit As String
+      Dim TrcMus As String
+      Dim Compos As String
+
+      TxtStr = "Albumartist" _
+       & ";" & "Year" _
+       & ";" & "Album" _
+       & ";" & "Trackartist" _
+       & ";" & "Disc" _
+       & ";" & "Track" _
+       & ";" & "Running Time" _
+       & ";" & "Title" _
+       & ";" & "|"
+      Console.WriteLine(TxtStr)
+      CvsFil.WriteLine(TxtStr)
+
+      For cslCnt = 0 To (slCnt)
+
+         sd = sl.Item(cslCnt)
+
+         FilDrvExt(sd.Path)
+
+         AlbMus = Trim(Replace(sd.AlbumArtistName, ";", ":"))
+         AlbNam = Trim(Replace(sd.AlbumName, ";", ":"))
+         TrcTit = Trim(Replace(sd.Title, ";", ":"))
+         TrcMus = Trim(Replace(sd.ArtistName, ";", ":"))
+         Compos = Trim(Replace(sd.MusicComposer, ";", ":"))
+
+         TxtStr = AlbMus _
+          & ";" & FixLngStr(sd.Year, 4, "R") _
+          & ";" & AlbNam _
+          & ";" & TrcMus _
+          & ";" & FixLngStr(sd.DiscNumberStr, TrkNbrLng, "R") _
+          & ";" & FixLngStr(sd.TrackOrderStr, TrkNbrLng, "R") _
+          & ";" & FixLngStr(sd.SongLengthString, TrkTimLng, "R") _
+          & ";" & TrcTit
+
+         WrtCnsLin(TxtStr)
+         CvsFil.WriteLine(TxtStr)
+
+      Next
+
+      CvsFil.Flush()
+      CvsFil.Close()
+
+      Return True
+
+   End Function
+   REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
    Function LstAllSng() As Boolean
 
       Dim cslCnt As Long
@@ -1479,7 +1541,7 @@ Module Module1
 
          Next
 
-         Console.WriteLine(TxtStr)
+         WrtCnsLin(TxtStr)
          CvsFil.WriteLine(TxtStr)
 
       Next
@@ -1487,6 +1549,20 @@ Module Module1
       CvsFil.Flush()
       CvsFil.Close()
 
+      Return True
+
+   End Function
+   REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+   REM *---------------------------------------------------------------------------------------------------------------------------------------------------------------
+   Function WrtCnsLin(wrkInpStr As String) As Boolean
+
+      Dim InpStr As New StringBuilder
+      InpStr.Clear()
+      InpStr.Append(wrkInpStr)
+
+      If Console.BufferWidth <= InpStr.Length Then Console.BufferWidth = (InpStr.Length + 1)
+      Console.WriteLine(InpStr.ToString)
       Return True
 
    End Function
@@ -1597,6 +1673,8 @@ Module Module1
       MnucIndex += 1 : ReDim Preserve MnuLin(MnucIndex) : MnuLin(MnucIndex) = " * 13 - dbPoweramp Komponisten richtig stellen                    *"
       MnucIndex += 1 : ReDim Preserve MnuLin(MnucIndex) : MnuLin(MnucIndex) = " * 14 - Track-Komponist(en) korrigieren                           *"
       MnucIndex += 1 : ReDim Preserve MnuLin(MnucIndex) : MnuLin(MnucIndex) = " * 15 - Album/Track-Bild korrigieren                              *"
+      MnucIndex += 1 : ReDim Preserve MnuLin(MnucIndex) : MnuLin(MnucIndex) = " *----------------------------------------------------------------*"
+      MnucIndex += 1 : ReDim Preserve MnuLin(MnucIndex) : MnuLin(MnucIndex) = " * 20 - HandBase-Basis ausgeben                                   *"
       MnucIndex += 1 : ReDim Preserve MnuLin(MnucIndex) : MnuLin(MnucIndex) = " *----------------------------------------------------------------*"
       MnucIndex += 1 : ReDim Preserve MnuLin(MnucIndex) : MnuLin(MnucIndex) = " * 80 - Liste aktueller Titel ausgeben                            *"
       MnucIndex += 1 : ReDim Preserve MnuLin(MnucIndex) : MnuLin(MnucIndex) = " *----------------------------------------------------------------*"
